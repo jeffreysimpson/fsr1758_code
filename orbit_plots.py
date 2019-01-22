@@ -73,9 +73,9 @@ icrs_err = coord.ICRS(ra=0*u.deg, dec=0*u.deg,
 icrs_samples = create_error_samples(icrs, icrs_err, n_samples=100)
 
 fsr1758_orbit = compute_orbit(icrs,
-                              dt=-0.1*5*u.Myr, n_steps=50000/5)
+                              dt=-0.1*5*u.Myr, n_steps=50000/20)
 fsr1758_orbit_errors = compute_orbit(icrs_samples,
-                                     dt=-0.1*5*u.Myr, n_steps=50000/5)
+                                     dt=-0.1*5*u.Myr, n_steps=50000/20)
 
 fig, axes = plt.subplots(1, 3, figsize=(3.32*2, 2.3))
 fsr1758_orbit.plot(color='C3', zorder=500, axes=fig.axes)
