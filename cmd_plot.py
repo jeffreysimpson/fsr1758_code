@@ -100,7 +100,7 @@ plot_kwargs = [dict(alpha=0.5, s=2, c='#4daf4a', lw=0),
 
 ra = 262.806
 dec = -39.822
-box = 0.8
+box = 1.3
 plot_limits = [[[ra-box, ra+box], [dec-(box-0.1), dec+(box-0.1)]],
                [[-2.85-1.3, -2.85+1.3], [2.55-1.3, 2.55+1.3]],
                [[0.7, 3.0], [20.5, 10]],
