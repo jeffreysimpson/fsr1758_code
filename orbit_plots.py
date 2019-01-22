@@ -5,10 +5,8 @@
 import astropy.coordinates as coord
 import astropy.units as u
 import numpy as np
-import gala.coordinates as gc
 import gala.dynamics as gd
 import gala.potential as gp
-from gala.units import galactic
 import matplotlib.pyplot as plt
 import seaborn as sns
 sns.set_context("paper", font_scale=0.8)
