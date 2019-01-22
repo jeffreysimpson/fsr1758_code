@@ -74,15 +74,24 @@ icrs_err = coord.ICRS(ra=0*u.deg, dec=0*u.deg,
 
 icrs_samples = create_error_samples(icrs, icrs_err, n_samples=100)
 
-fsr1758_orbit = compute_orbit(icrs)
-fsr1758_orbit_errors = compute_orbit(icrs_samples)
+fsr1758_orbit = compute_orbit(icrs, n_steps=10000)
+fsr1758_orbit_errors = compute_orbit(icrs_samples, n_steps=10000)
 
 fig, axes = plt.subplots(1, 3, figsize=(3.32*2, 2.3))
-fsr1758_orbit.plot(color='C3', zorder=1000, axes=fig.axes)
+fsr1758_orbit.plot(color='C3', zorder=500, axes=fig.axes)
+axes[0].scatter(icrs.transform_to(gc_frame).cartesian.x,
+                icrs.transform_to(gc_frame).cartesian.y,
+                color='k', zorder=1000, s=4)
+axes[1].scatter(icrs.transform_to(gc_frame).cartesian.x,
+                icrs.transform_to(gc_frame).cartesian.z,
+                color='k', zorder=1000, s=4)
+axes[2].scatter(icrs.transform_to(gc_frame).cartesian.y,
+                icrs.transform_to(gc_frame).cartesian.z,
+                color='k',
+                zorder=1000, s=4)
 fsr1758_orbit_errors.plot(color='C0', alpha=0.1, lw=0.3, axes=fig.axes)
 fig.align_labels()
 plt.savefig("../fsr1758_paper/figures/orbit.pdf", bbox_inches='tight')
-plt.close("all")
 
 # Now redo the orbits with lots of samples
 icrs_samples = create_error_samples(icrs, icrs_err, n_samples=1000)
