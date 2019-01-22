@@ -98,16 +98,21 @@ fsr1758_orbit_errors = compute_orbit(icrs_samples)
 pers = fsr1758_orbit_errors.pericenter(approximate=True)
 apos = fsr1758_orbit_errors.apocenter(approximate=True)
 eccs = fsr1758_orbit_errors.eccentricity(approximate=True)
+r_g = fsr1758_orbit_errors.spherical.distance[0]
 
 # Print the values in LaTeX format.
 mc = np.percentile(pers.value, [16, 50, 84])
 q = np.diff(mc)
-print(f"${mc[1]:0.2f}_{{-{q[0]:0.2f}}}^{{+{q[1]:0.2f}}}$~kpc")
+print(f"${mc[1]:0.1f}_{{-{q[0]:0.1f}}}^{{+{q[1]:0.1f}}}$~kpc")
 
 mc = np.percentile(apos.value, [16, 50, 84])
 q = np.diff(mc)
-print(f"${mc[1]:0.2f}_{{-{q[0]:0.2f}}}^{{+{q[1]:0.2f}}}$~kpc")
+print(f"${mc[1]:0.1f}_{{-{q[0]:0.1f}}}^{{+{q[1]:0.1f}}}$~kpc")
 
 mc = np.percentile(eccs.value, [16, 50, 84])
 q = np.diff(mc)
 print(f"${mc[1]:0.2f}_{{-{q[0]:0.2f}}}^{{+{q[1]:0.2f}}}$")
+
+mc = np.percentile(r_g.value, [16, 50, 84])
+q = np.diff(mc)
+print(f"${mc[1]:0.2f}_{{-{q[0]:0.2f}}}^{{+{q[1]:0.2f}}}$~kpc")
