@@ -31,9 +31,6 @@ cluster_pos_idx = c.separation(cluster_centre) < 0.2*u.deg
 cluster_pm_idx = np.sqrt((fsr1758['pmra']--2.85)**2 +
                          (fsr1758['pmdec']-2.55)**2) < 1.2
 parallax_cut = fsr1758['parallax'] < 0.3
-large_pm_idx = (c.separation(cluster_centre) < 35*u.arcmin)
-radial_velocity_members_idx = fsr1758['radial_velocity'] > 200
-has_rv_idx = ~np.isnan(fsr1758['radial_velocity'])
 locus_sample_idx = fsr1758['locus_sample']
 
 likely_cluster_idx = cluster_pos_idx & cluster_pm_idx
@@ -57,13 +54,11 @@ axes_labels = [['RA (deg)', 'Dec (deg)'],
                ['parallax (mas)', 'Number of stars']]
 
 idx_list = [(parallax_cut & cluster_pm_idx & ~likely_cluster_idx &
-             ~has_rv_idx & ~locus_sample_idx),
-            (parallax_cut & likely_cluster_idx & ~radial_velocity_members_idx &
-             ~has_rv_idx & ~locus_sample_idx),
+             ~locus_sample_idx),
+            (parallax_cut & likely_cluster_idx & ~locus_sample_idx),
             (parallax_cut & cluster_pm_idx & ~likely_cluster_idx &
-             ~has_rv_idx & locus_sample_idx),
-            (parallax_cut & likely_cluster_idx & ~radial_velocity_members_idx &
-             ~has_rv_idx & locus_sample_idx)]
+             locus_sample_idx),
+            (parallax_cut & likely_cluster_idx & locus_sample_idx)]
 
 plot_kwargs = [dict(alpha=0.5/3, s=2/2, c='#4daf4a', lw=0),
                dict(alpha=0.8/3, s=4/2, c='#984ea3', lw=0),
