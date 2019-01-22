@@ -44,15 +44,15 @@ def create_error_samples(nominal_position, errors, n_samples=100):
                       pm_dec=pm_dec, radial_velocity=rv)
 
 
-def compute_orbit(icrs):
-    """Integrate the orbit for a give cluster position(s)."""
+def compute_orbit(icrs, dt=-0.1*u.Myr, n_steps=50000):
+    """Integrate the orbit."""
     c_icrs = icrs.transform_to(gc_frame).cartesian
     object_phase_space = gd.PhaseSpacePosition(
         pos=c_icrs.xyz,
         vel=c_icrs.differentials['s'].d_xyz)
     return gp.Hamiltonian(pot).integrate_orbit(object_phase_space,
-                                               dt=-0.5*u.Myr,
-                                               n_steps=2000)
+                                               dt=dt,
+                                               n_steps=n_steps)
 
 
 pot = gp.MilkyWayPotential()
