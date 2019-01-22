@@ -45,69 +45,94 @@ fsr1758_vaex = vaex.from_arrays(ra=fsr1758['ra'],
                                 bp_rp=fsr1758['bp_rp'],
                                 phot_g_mean_mag=fsr1758['phot_g_mean_mag'])
 
-def plot(axes, x, y, RV=False, PM=False):
-    background_idx = cluster_pm_idx & ~likely_cluster_idx & ~has_rv_idx
-    pm_field_idx = (likely_cluster_idx &
-                    ~radial_velocity_members_idx & ~has_rv_idx)
-    pm_rv_idx = cluster_pm_idx & radial_velocity_members_idx
-    pm_not_rv_idx = cluster_pm_idx & has_rv_idx & ~radial_velocity_members_idx
-    axes.scatter(x[background_idx],
-                 y[background_idx],
-                 alpha=0.5, s=3, c='#984ea3', lw=0)
-    axes.scatter((x[pm_field_idx]),
-                 (y[pm_field_idx]),
-                 alpha=0.8, s=3, c='#4daf4a', lw=0)
-    axes.scatter((x[pm_rv_idx]),
-                 (y[pm_rv_idx]),
-                 marker='*', alpha=1., s=60, c='#e41a1c', lw=0)
-    axes.scatter((x[pm_not_rv_idx]),
-                 (y[pm_not_rv_idx]),
-                 marker='*', edgecolor='#e41a1c',
-                 facecolor='None', alpha=1., s=30, lw=0.4)
+
+
+# vaex_selection = f'(ra > {ra}-{box}) & (ra < {ra}+{box}) & (dec > {dec}-{box}) & (dec < {dec}+{box})'
+# plt.sca(axes[0, 0])
+# fsr1758_vaex.plot(fsr1758_vaex.ra, fsr1758_vaex.dec,
+#                   selection=[vaex_selection],
+#                   colorbar=False,
+#                   colormap="Greys")
+# plt.sca(axes[0, 1])
+# fsr1758_vaex.plot(fsr1758_vaex.pmra, fsr1758_vaex.pmdec,
+#                   selection=[vaex_selection],
+#                   colorbar=False,
+#                   colormap="Greys")
+# plt.sca(axes[1, 0])
+# fsr1758_vaex.plot(fsr1758_vaex.cluster_distance, fsr1758_vaex.radial_velocity,
+#                   selection=[vaex_selection],
+#                   colorbar=False,
+#                   colormap="Greys")
+# plt.sca(axes[1, 1])
+# fsr1758_vaex.plot(fsr1758_vaex.bp_rp, fsr1758_vaex.phot_g_mean_mag,
+#                   selection=[vaex_selection],
+#                   colorbar=False,
+#                   colormap="Greys")
+
+
+panel_labels = ['(a)', '(b)', '(c)', '(d)', '(e)', '(f)']
+
+xy_values = [['ra', 'dec'],
+             ['pmra', 'pmdec'],
+             ['bp_rp', 'phot_g_mean_mag'],
+             ['g_i', 'gmag'],
+             ['cluster_distance', 'radial_velocity'],
+             ['parallax', ]]
+
+axes_labels = [['RA (deg)', 'Dec (deg)'],
+               [r'$\mu_\mathrm{RA}$ (mas yr$^{-1}$)',
+                r'$\mu_\mathrm{Dec}$ (mas yr$^{-1}$)'],
+               [r'$G_\mathrm{BP}-\mathrm{G_{RP}}$', r'$G$'],
+               [r'$g-i$', r'$g$'],
+               ['Angular distance (deg)', r'$v_r$ (km s$^{-1}$'],
+               ['parallax (mas)', 'Number of stars']]
+
+idx_list = [cluster_pm_idx & ~likely_cluster_idx & ~has_rv_idx,
+            likely_cluster_idx & ~radial_velocity_members_idx & ~has_rv_idx,
+            cluster_pm_idx & radial_velocity_members_idx,
+            cluster_pm_idx & has_rv_idx & ~radial_velocity_members_idx]
+
+plot_kwargs = [dict(alpha=0.5, s=2, c='#4daf4a', lw=0),
+               dict(alpha=0.8, s=4, c='#984ea3', lw=0),
+               dict(marker='*', alpha=1., s=60, c='#e41a1c', lw=0),
+               dict(marker='*', edgecolor='#e41a1c',
+                    facecolor='None', alpha=1., s=30, lw=0.4)]
 
 ra = 262.806
 dec = -39.822
 box = 0.8
-vaex_selection = f'(ra > {ra}-{box}) & (ra < {ra}+{box}) & (dec > {dec}-{box}) & (dec < {dec}+{box})'
+plot_limits = [[[ra-box, ra+box], [dec-(box-0.1), dec+(box-0.1)]],
+               [[-2.85-1.3, -2.85+1.3], [2.55-1.3, 2.55+1.3]],
+               [[0.7, 3.0], [20.5, 10]],
+               [[0.5, 3.0], [21.5, 15]],
+               [[0, 1], [-160, 250]],
+               [[-2, 2], []]]
 
-fig, axes = plt.subplots(ncols=2, nrows=2, figsize=(3.32*2, 5.5))
-#                          constrained_layout=True)#,sharex='col',sharey='col')
-plt.sca(axes[0, 0])
-fsr1758_vaex.plot(fsr1758_vaex.ra, fsr1758_vaex.dec,
-                  selection=[vaex_selection],
-                  colorbar=False,
-                  colormap="Greys")
-plt.sca(axes[0, 1])
-fsr1758_vaex.plot(fsr1758_vaex.pmra, fsr1758_vaex.pmdec,
-                  selection=[vaex_selection],
-                  colorbar=False,
-                  colormap="Greys")
-plt.sca(axes[1, 0])
-fsr1758_vaex.plot(fsr1758_vaex.cluster_distance, fsr1758_vaex.radial_velocity,
-                  selection=[vaex_selection],
-                  colorbar=False,
-                  colormap="Greys")
-plt.sca(axes[1, 1])
-fsr1758_vaex.plot(fsr1758_vaex.bp_rp, fsr1758_vaex.phot_g_mean_mag,
-                  selection=[vaex_selection],
-                  colorbar=False,
-                  colormap="Greys")
-plot(axes[0, 0], fsr1758['ra'], fsr1758['dec'])
-plot(axes[0, 1], fsr1758['pmra'], fsr1758['pmdec'], PM=True, RV=True)
-plot(axes[1, 0],
-     c.separation(cluster_centre), fsr1758['radial_velocity'], RV=True)
-plot(axes[1, 1], fsr1758['bp_rp'], fsr1758['phot_g_mean_mag'], RV=True)
+fig, axes = plt.subplots(ncols=2, nrows=3, figsize=(3.32*2, 7.),
+                         constrained_layout=True)
 
+for axes_count, ax in enumerate(axes.flatten()):
+    ax.set_xlabel(axes_labels[axes_count][0])
+    ax.set_ylabel(axes_labels[axes_count][1])
+    ax.set_xlim(plot_limits[axes_count][0])
+    ax.annotate(panel_labels[axes_count], (0.90, 0.90),
+                xycoords='axes fraction')
+    if axes_count != 5:
+        ax.set_ylim(plot_limits[axes_count][1])
+    for idx_count, idx in enumerate(idx_list):
+        if axes_count != 5:
+            ax.scatter(fsr1758[xy_values[axes_count][0]][idx],
+                       fsr1758[xy_values[axes_count][1]][idx],
+                       **plot_kwargs[idx_count])
+        else:
+            if idx_count < 2:
+                ax.hist(fsr1758[xy_values[axes_count][0]][idx],
+                        bins=np.arange(-2, 2, 0.05), histtype='step',
+                        color=plot_kwargs[idx_count]['c'])
+            if idx_count > 1:
+                ax.scatter(fsr1758[xy_values[axes_count][0]][idx],
+                           np.random.randn(np.sum(idx))*2+10,
+                           **plot_kwargs[idx_count])
 
-axes[0, 0].set_xlim(ra-box, ra+box)
-axes[0, 0].set_ylim(dec-box, dec+box)
-
-axes[0, 1].set_xlim(-2.85-7, -2.85+7)
-axes[0, 1].set_ylim(2.55-8, 2.55+5.5)
-
-axes[1, 1].set_xlim(0.5, 3.5)
-axes[1, 1].set_ylim(21, 10)
-fig.align_labels()
+# fig.align_labels()
 plt.savefig("../fsr1758_paper/figures/cmd.pdf", bbox_inches='tight')
-
-# plt.show()
