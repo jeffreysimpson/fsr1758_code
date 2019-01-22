@@ -55,7 +55,8 @@ likely_cluster_idx = cluster_pos_idx & cluster_pm_idx
 #                   colorbar=False,
 #                   colormap="Greys")
 # plt.sca(axes[1, 0])
-# fsr1758_vaex.plot(fsr1758_vaex.cluster_distance, fsr1758_vaex.radial_velocity,
+# fsr1758_vaex.plot(fsr1758_vaex.cluster_distance,
+#                   fsr1758_vaex.radial_velocity,
 #                   selection=[vaex_selection],
 #                   colorbar=False,
 #                   colormap="Greys")
