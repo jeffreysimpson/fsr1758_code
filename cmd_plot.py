@@ -87,8 +87,8 @@ axes_labels = [['RA (deg)', 'Dec (deg)'],
                ['Angular distance (deg)', r'$v_r$ (km s$^{-1}$'],
                ['parallax (mas)', 'Number of stars']]
 
-idx_list = [cluster_pm_idx & ~likely_cluster_idx & ~has_rv_idx,
-            likely_cluster_idx & ~radial_velocity_members_idx & ~has_rv_idx,
+idx_list = [cluster_pm_idx & ~cluster_pos_idx & ~has_rv_idx,
+            cluster_pm_idx & cluster_pos_idx & ~has_rv_idx,
             cluster_pm_idx & radial_velocity_members_idx,
             cluster_pm_idx & has_rv_idx & ~radial_velocity_members_idx]
 
