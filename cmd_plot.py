@@ -131,7 +131,7 @@ for axes_count, ax in enumerate(axes.flatten()):
                         color=plot_kwargs[idx_count]['c'])
             if idx_count > 1:
                 ax.scatter(fsr1758[xy_values[axes_count][0]][idx],
-                           np.random.randn(np.sum(idx))*2+10,
+                           np.random.randn(np.sum(idx))*4+10,
                            **plot_kwargs[idx_count])
 
 # fig.align_labels()
