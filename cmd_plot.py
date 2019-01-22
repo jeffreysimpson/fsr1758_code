@@ -8,7 +8,7 @@ from astropy import units as u
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-import vaex
+# import vaex
 
 __author__ = "Jeffrey Simpson"
 __copyright__ = "Copyright 2019, Jeffrey Simpson"
@@ -33,20 +33,16 @@ cluster_pm_idx = np.sqrt((fsr1758['pmra']--2.85)**2 +
 large_pm_idx = (c.separation(cluster_centre) < 35*u.arcmin)
 radial_velocity_members_idx = fsr1758['radial_velocity'] > 200
 has_rv_idx = ~np.isnan(fsr1758['radial_velocity'])
-
 likely_cluster_idx = cluster_pos_idx & cluster_pm_idx
 
-fsr1758_vaex = vaex.from_arrays(ra=fsr1758['ra'],
-                                dec=fsr1758['dec'],
-                                pmra=fsr1758['pmra'],
-                                pmdec=fsr1758['pmdec'],
-                                radial_velocity=fsr1758['radial_velocity'],
-                                cluster_distance=c.separation(cluster_centre),
-                                bp_rp=fsr1758['bp_rp'],
-                                phot_g_mean_mag=fsr1758['phot_g_mean_mag'])
-
-
-
+# fsr1758_vaex = vaex.from_arrays(ra=fsr1758['ra'],
+#                                 dec=fsr1758['dec'],
+#                                 pmra=fsr1758['pmra'],
+#                                 pmdec=fsr1758['pmdec'],
+#                                 radial_velocity=fsr1758['radial_velocity'],
+#                                 cluster_distance=c.separation(cluster_centre),
+#                                 bp_rp=fsr1758['bp_rp'],
+#                                 phot_g_mean_mag=fsr1758['phot_g_mean_mag'])
 # vaex_selection = f'(ra > {ra}-{box}) & (ra < {ra}+{box}) & (dec > {dec}-{box}) & (dec < {dec}+{box})'
 # plt.sca(axes[0, 0])
 # fsr1758_vaex.plot(fsr1758_vaex.ra, fsr1758_vaex.dec,
