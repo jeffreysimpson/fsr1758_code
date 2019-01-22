@@ -22,30 +22,6 @@ sns.set_context("paper", font_scale=0.8)
 
 gaia_1p5deg = fits.open("../data/decam_gaia_2deg.fits")
 
-#!/usr/bin/env python
-
-"""not_a_halo.py: Purported halo around FSR1758."""
-
-from astropy.io import fits
-from astropy.coordinates import SkyCoord
-from astropy import units as u
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-__author__ = "Jeffrey Simpson"
-__copyright__ = "Copyright 2019, Jeffrey Simpson"
-__credits__ = ["Jeffrey Simpson"]
-__license__ = "MIT"
-__version__ = "0.0.1"
-__maintainer__ = "Jeffrey Simpson"
-__email__ = "jeffrey.simpson@unsw.edu.au"
-__status__ = "Development"
-
-sns.set_context("paper", font_scale=0.8)
-
-gaia_1p5deg = fits.open("../data/decam_gaia_2deg.fits")
-
 fsr1758 = gaia_1p5deg[1].data
 c = SkyCoord(ra=fsr1758['ra']*u.degree,
              dec=fsr1758['dec']*u.degree, frame='icrs')
@@ -132,5 +108,3 @@ for axes_count, ax in enumerate(axes.flatten()):
 
 # fig.align_labels()
 plt.savefig("../fsr1758_paper/figures/not_a_halo.pdf", bbox_inches='tight')
-
-plt.show()
