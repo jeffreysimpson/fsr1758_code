@@ -79,14 +79,14 @@ plot_limits = [[[ra-box, ra+box], [dec-(box-0.1), dec+(box-0.1)]],
                [[0, 1], [-160, 250]],
                [[-2, 2], []]]
 
-fig, axes = plt.subplots(ncols=2, nrows=3, figsize=(3.32*2, 7.),
+fig, axes = plt.subplots(ncols=3, nrows=2, figsize=(3.32*2, 4.5),
                          constrained_layout=True)
 
 for axes_count, ax in enumerate(axes.flatten()):
     ax.set_xlabel(axes_labels[axes_count][0])
     ax.set_ylabel(axes_labels[axes_count][1])
     ax.set_xlim(plot_limits[axes_count][0])
-    ax.annotate(panel_labels[axes_count], (0.90, 0.90),
+    ax.annotate(panel_labels[axes_count], (0.85, 0.92),
                 xycoords='axes fraction')
     if axes_count != 5:
         ax.set_ylim(plot_limits[axes_count][1])
