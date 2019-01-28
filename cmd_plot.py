@@ -34,8 +34,8 @@ large_pm_idx = (c.separation(cluster_centre) < 35*u.arcmin)
 radial_velocity_members_idx = fsr1758['radial_velocity'] > 200
 has_rv_idx = ~np.isnan(fsr1758['radial_velocity'])
 likely_cluster_idx = cluster_pos_idx & cluster_pm_idx
-rrlyraeab_idx = fsr1758['Mode'] == "RRab"
-rrlyraeac_idx = fsr1758['Mode'] == "RRc"
+# rrlyraeab_idx = fsr1758['Mode'] == "RRab"
+# rrlyraeac_idx = fsr1758['Mode'] == "RRc"
 
 
 panel_labels = ['(a)', '(b)', '(c)', '(d)', '(e)', '(f)']
@@ -61,10 +61,10 @@ idx_list = [cluster_pm_idx & ~cluster_pos_idx & ~has_rv_idx,
             cluster_pm_idx & cluster_pos_idx & has_rv_idx & ~radial_velocity_members_idx,
             cluster_pm_idx & ~cluster_pos_idx & radial_velocity_members_idx,
             cluster_pm_idx & ~cluster_pos_idx & has_rv_idx & ~radial_velocity_members_idx,
-            cluster_pm_idx & cluster_pos_idx & rrlyraeab_idx,
-            cluster_pm_idx & ~cluster_pos_idx & rrlyraeab_idx,
-            cluster_pm_idx & cluster_pos_idx & rrlyraeac_idx,
-            cluster_pm_idx & ~cluster_pos_idx & rrlyraeac_idx]
+            # cluster_pm_idx & cluster_pos_idx & rrlyraeab_idx,
+            # cluster_pm_idx & ~cluster_pos_idx & rrlyraeab_idx,
+            # cluster_pm_idx & cluster_pos_idx & rrlyraeac_idx,
+            # cluster_pm_idx & ~cluster_pos_idx & rrlyraeac_idx]
 
 plot_kwargs = [dict(alpha=0.5, s=2, c='#4daf4a', lw=0),
                dict(alpha=0.8, s=4, c='#984ea3', lw=0),
@@ -74,12 +74,13 @@ plot_kwargs = [dict(alpha=0.5, s=2, c='#4daf4a', lw=0),
                dict(marker='*', alpha=1., s=60, c='k', lw=0),
                dict(marker='*', edgecolor='k',
                     facecolor='None', alpha=1., s=30, lw=0.4),
-               dict(marker='s', alpha=1., s=10, c='C0', lw=0),
-               dict(marker='s', edgecolor='C0',
-                    facecolor='None', alpha=1., s=10, lw=0.4),
-               dict(marker='<', alpha=1., s=10, c='k', lw=0),
-               dict(marker='<', edgecolor='k',
-                    facecolor='None', alpha=1., s=10, lw=0.4)]
+               # dict(marker='s', alpha=1., s=10, c='C0', lw=0),
+               # dict(marker='s', edgecolor='C0',
+               #      facecolor='None', alpha=1., s=10, lw=0.4),
+               # dict(marker='<', alpha=1., s=10, c='k', lw=0),
+               # dict(marker='<', edgecolor='k',
+               #      facecolor='None', alpha=1., s=10, lw=0.4)
+               ]
 
 ra = 262.806
 dec = -39.822
