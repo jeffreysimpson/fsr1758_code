@@ -35,37 +35,6 @@ radial_velocity_members_idx = fsr1758['radial_velocity'] > 200
 has_rv_idx = ~np.isnan(fsr1758['radial_velocity'])
 likely_cluster_idx = cluster_pos_idx & cluster_pm_idx
 
-# fsr1758_vaex = vaex.from_arrays(ra=fsr1758['ra'],
-#                                 dec=fsr1758['dec'],
-#                                 pmra=fsr1758['pmra'],
-#                                 pmdec=fsr1758['pmdec'],
-#                                 radial_velocity=fsr1758['radial_velocity'],
-#                                 cluster_distance=c.separation(cluster_centre),
-#                                 bp_rp=fsr1758['bp_rp'],
-#                                 phot_g_mean_mag=fsr1758['phot_g_mean_mag'])
-# vaex_selection = f'(ra > {ra}-{box}) & (ra < {ra}+{box}) & (dec > {dec}-{box}) & (dec < {dec}+{box})'
-# plt.sca(axes[0, 0])
-# fsr1758_vaex.plot(fsr1758_vaex.ra, fsr1758_vaex.dec,
-#                   selection=[vaex_selection],
-#                   colorbar=False,
-#                   colormap="Greys")
-# plt.sca(axes[0, 1])
-# fsr1758_vaex.plot(fsr1758_vaex.pmra, fsr1758_vaex.pmdec,
-#                   selection=[vaex_selection],
-#                   colorbar=False,
-#                   colormap="Greys")
-# plt.sca(axes[1, 0])
-# fsr1758_vaex.plot(fsr1758_vaex.cluster_distance,
-#                   fsr1758_vaex.radial_velocity,
-#                   selection=[vaex_selection],
-#                   colorbar=False,
-#                   colormap="Greys")
-# plt.sca(axes[1, 1])
-# fsr1758_vaex.plot(fsr1758_vaex.bp_rp, fsr1758_vaex.phot_g_mean_mag,
-#                   selection=[vaex_selection],
-#                   colorbar=False,
-#                   colormap="Greys")
-
 
 panel_labels = ['(a)', '(b)', '(c)', '(d)', '(e)', '(f)']
 
