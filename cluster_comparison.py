@@ -169,13 +169,12 @@ axes[2].set_xlabel("eccentricity")
 axes[3].set_xlabel(r"$L_z$ (kpc km/s)")
 axes[1].set_xlabel(r"$R_{GC}$ (kpc)")
 
-axes[3].annotate("retrograde", (1000, 1), fontsize=4)
-axes[3].annotate("prograde", (-3000, 1), fontsize=4)
+axes[3].annotate("retrograde", (1000, 1.1), fontsize=4)
+axes[3].annotate("prograde", (-3000, 1.1), fontsize=4)
 
-axes[0].set_xlim(0.1, 30)
-axes[0].set_ylim(0.8, 110)
-axes[1].set_xlim(0.3, 130)
-axes[2].set_xlim(0, 1)
+axes[0].set_xlim(0.15, 30)
+axes[0].set_ylim(1, 110)
+axes[1].set_xlim(0.4, 130)
 
 fig.align_labels()
 plt.savefig("../fsr1758_paper/figures/orbit_comparison_new.pdf",
