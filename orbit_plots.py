@@ -4,11 +4,12 @@
 
 import astropy.coordinates as coord
 import astropy.units as u
-import numpy as np
 import gala.dynamics as gd
 import gala.potential as gp
 import matplotlib.pyplot as plt
+import numpy as np
 import seaborn as sns
+
 sns.set_context("paper", font_scale=0.8)
 
 

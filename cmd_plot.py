@@ -2,13 +2,12 @@
 
 """cmd_plot.py: Identifies and plots members of FSR1758."""
 
-from astropy.io import fits
-from astropy.coordinates import SkyCoord
-from astropy import units as u
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 import seaborn as sns
-# import vaex
+from astropy import units as u
+from astropy.coordinates import SkyCoord
+from astropy.io import fits
 
 __author__ = "Jeffrey Simpson"
 __copyright__ = "Copyright 2019, Jeffrey Simpson"

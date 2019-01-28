@@ -2,14 +2,16 @@
 
 """cluster_comparison.py: Plot cluster orbit comparison for FSR1758 paper."""
 
-import pandas as pd
-import numpy as np
 import astropy.coordinates as coord
 import astropy.units as u
-import gala.potential as gp
 import gala.dynamics as gd
+import gala.potential as gp
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 import seaborn as sns
+from matplotlib.ticker import ScalarFormatter
+
 sns.set_context("paper", font_scale=0.8)
 
 __author__ = "Jeffrey Simpson"
