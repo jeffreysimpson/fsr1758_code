@@ -40,7 +40,7 @@
 %%%%% AUTHORS - PLACE YOUR OWN PACKAGES HERE %%%%%
 
 % Only include extra packages if you really need them. Common packages are:
-\usepackage{graphicx}	% Including figure files
+\usepackage{graphicx}	% Including Fig.\ files
 \usepackage{amsmath}	% Advanced maths commands
 \usepackage{amssymb}	% Extra maths symbols
 
@@ -50,7 +50,10 @@
 
 % Please keep new commands to a minimum, and use \newcommand not \def to avoid
 % overwriting existing commands. Example:
-%\newcommand{\pcm}{\,cm$^{-2}$}	% per cm-squared
+\newcommand{\kms}{~\ensuremath{\textrm{km}\,\textrm{s}^{-1}}}
+\newcommand{\masyr}{~\ensuremath{\textrm{mas}\,\textrm{yr}^{-1}}}
+\newcommand{\feh}{\ensuremath{[\textrm{Fe}/\textrm{H}]}}
+\defcitealias{Barba2018}{B19}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -58,7 +61,7 @@
 
 % Title of the paper, and the short title which is used in the headers.
 % Keep the title short and informative.
-\title[An orbit for FSR1758]{An orbit for FSR1758}
+\title[FSR1758 orbit]{The very retrograde orbit of the globular cluster FSR1758 revealed with \textit{Gaia} DR2}
 
 % The list of authors, and the short list which is used in the headers.
 % If you need two or more lines of authors, add an extra line using \newauthor
@@ -83,7 +86,7 @@ $^{1}$School of Physics, UNSW, Sydney, NSW 2052, Australia
 
 % Abstract of the paper
 \begin{abstract}
-We present an orbital calculation for the newly characterized stellar object FSR1758. This shows an object for a large motion out of the bulge and the plane of the Galaxy, with a radial distance varying from 4--16~kpc.
+We report the first radial velocity measurements of the recently identified globular cluster FSR1758. From the four stars with radial velocities from the \textit{Gaia} Radial Velocity Spectrograph reported in \textit{Gaia} DR2, we find FSR1758 has a radial velocity of $227\pm1$\kms. Combined with \textit{Gaia} proper motions and photometric distance estimates, this shows that FSR1758 is on a very retrograde, radial orbit with an pericentre of $3.8_{-0.9}^{+0.9}$~kpc, an apocentre of $16_{-5}^{+8}$~kpc, and eccentricity of $0.62_{-0.04}^{+0.05}$. Although it is currently at a Galactocentric distance of $3.8_{-0.9}^{+0.9}$~kpc --- at the edge of the bulge --- it is an intruder from the halo. We investigate whether a reported `halo' of stars around FSR1758 is related to the cluster, and find that most of these stars are likely foreground dwarf stars. We conclude that FSR1758 is not a dwarf galaxy, but rather a globular cluster.
 \end{abstract}
 
 % Select between one and six entries from the list of approved keywords.
@@ -97,75 +100,278 @@ keyword1 -- keyword2 -- keyword3
 %%%%%%%%%%%%%%%%% BODY OF PAPER %%%%%%%%%%%%%%%%%%
 
 \section{Introduction} \label{sec:intro}
-The second data release of the Gaia mission \citep{GaiaCollaboration:2018io} has revolutionized our view of the Milky Way Galaxy. One of its important results is helping to confirm or refute \citep{Kos:2018we} the existence of purported stellar groupings. The precise proper motions are especially helpful in the Milky Way bugle, where photometric surveys are hampered by the large and differential reddening and extinction.
+The second data release of the \textit{Gaia} mission \citep{GaiaCollaboration:2018io} has revolutionized our view of the Milky Way Galaxy. Among its many results, it has proven very useful for investigating purported stellar clusters, in many cases confirming their existence \citep[e.g.,][]{Simpson:2017ex,Soubiran2018,Cantat-Gaudin2018}, but in some cases showing they are not real physical associations \citep[e.g.,][]{Kos:2018we}. The precise proper motions are especially helpful in the Milky Way bulge, where imaging surveys are hampered by the large and differential reddening and extinction, resulting in clusters hidden from easy view. Its radial velocity measurements, though only available for the brighter cohort of stars, enable us to calculate the 3D motion of many clusters.
 
-Recently \citet{Barba2018} presented a physical characterization of the large, massive stellar grouping FSR1758. Using a combination of astrometry and photometry from Gaia, DECaPS, and VVVX, they found the stellar cluster to be curiously large and could potentially be the stripped core of a dwarf galaxy. As noted by the authors, one of the key pieces of information missing were spectroscopic observations of the cluster. These are crucial for deriving a full orbit and for confirming the photometric metallicity.
+Recently \citet[][hereafter \citetalias{Barba2018}]{Barba2018} used data from \textit{Gaia} DR2 and the DECam Plane Survey \citep[DECaPS;][]{Schlafly2018} to present a physical characterization of the large, massive stellar grouping FSR1758. They found the stellar cluster to be curiously large (on the order of the size of $\omega$~Cen), and claimed that it could potentially be the core of a dwarf galaxy based upon a halo of common proper motion stars in the surrounding region. As noted by \citetalias{Barba2018}, the key data missing were spectroscopic observations of the cluster. These data are crucial for deriving an orbit, confirming the photometric metallicity, and understanding the `halo' of common proper motion stars.
 
-In this letter we present an analysis of the orbit of FSR1758 based upon four member stars that have radial velocities (RVs) from the Gaia Radial Velocity Spectrometer (RVS).
+In this Letter we report the radial velocities of four members of FSR1758 measured with the \textit{Gaia} Radial Velocity Spectrograph \citep[RVS;][]{Cropper2018,GaiaCollaboration:2018fx} (Sec.\ \ref{sec:data}), which are used to calculate an orbit for FSR1758 (Sec.\ \ref{sec:orbit}). We also examine the `halo' of common proper motion stars around FSR1758 that led \citetalias{Barba2018} to propose that FSR1758 may be a dwarf galaxy (Sec.\  \ref{sec:halo}). We conclude that these stars are foreground field stars and are not associated with the cluster.
 
-\section{Data}
-
-%% The "ht!" tells LaTeX to put the figure "here" first, at the "top" next
-%% and to override the normal way of calculating a float position
+\section{Data}\label{sec:data}
 \begin{figure*}
 \includegraphics[width=\textwidth]{figures/cmd.pdf}
-\caption{Colour-magnitude diagram of FSR1758. Blue points indicate those stars that pass the positional and proper motion criteria. The black dots are all stars within 1.5 degrees that pass just the proper motion criterium. Shown with red stars are the four members with radial velocities. \label{fig:cmd}}
+\caption{Position (a), proper motion (b), color-magnitude diagrams (c,d), radial velocity (e), and parallax (f) distributions of all stars in \textit{Gaia} within 1~deg of FSR1758 and with proper motions within 1.2~\masyr\ of the value found by \citetalias{Barba2018}. The stars have been divided into `cluster' (red stars for those with radial velocity, otherwise purple points) and 'field' (black stars for those with radial velocity, otherwise green points) samples based upon their angular distance from the cluster. Filled stars identify the radial velocity members of FSR1758, and the unfilled stars are non-members with radial velocities. There are no stars with radial velocities in (d) due to the bright limit of DECaPS in this region. The cluster stars show an obvious grouping in proper motion space (panel b), and the colour-magnitude diagram morphology expected for an ancient, metal-poor population (panels c and d). In (f) the parallaxes of the stars with radial velocities are shown with the vertical positions randomly adjusted to aid the eye. The distribution of the parallaxes of cluster stars is offset from the distribution of the field stars, and the radial velocity members tend to have smaller parallaxes than the other stars with radial velocities.}
+\label{fig:cmd}
 \end{figure*}
 
-An initial search was conducted for all Gaia DR2 targets within 1.0 degrees of $\mathrm{RA}=262.806^\circ, \mathrm{Dec}=-39.822^\circ$, which returned a catalogue of over 1.5 million stars. The cluster has a distinct proper motion \citep{Cantat-Gaudin2018, Barba2018}, and a sample of likely cluster members can be identified using a positional and proper motion cuts. We select our `cluster' sample as those stars within 0.20 degrees of the cluster centre, and with proper motions within 1.2 mas/yr of proper motion found by \citet{Barba2018}: $(\mu_\mathrm{RA},\mu_\mathrm{Dec})=(-2.85,2.55)$~mas/yr.
+The primary source of data for this work was \textit{Gaia} DR2, combined with DECaPS. We searched for \textit{Gaia} DR2 targets within 1.0~deg of FSR1758 ($[\alpha,\delta]=[262.806^\circ,-39.822^\circ]$) which returned a catalogue of over 1.5 million stars\footnote{The data and analysis code is available at \url{zenodo.org/placeholder.}}. These were positionally cross-matched to the DECaPS catalogue using \textsc{topcat}. The bright limit for the DECaPS photometry is $G\sim14$, which meant that not all of the \textit{Gaia} targets have DECaPS photometry.
 
-Within this sample of 1345 stars, there were five with radial velocities, with three having $226.5<v_r<227.8$~km/s. The other two stars had RV like that which would be expected along the line-of-sight --- i.e., $-100<v_r<75$~km/s. The three stars with high RV were all found at the tip of the RGB of FSR1758. This convergence of spatial, kinematic, and photometric information leads to the conclusion that three stars are members of FSR1758, and that the radial velocity of the cluster is $v_r=227\pm1$~km/s.
+Visually, the cluster is not obvious as an over-density on the sky, but the cluster has a distinct proper motion \citep{Cantat-Gaudin2018, Barba2018}. Stars with proper motions within 1.2~\masyr\ of $(\mu_\mathrm{RA},\mu_\mathrm{Dec})=(-2.85,2.55)$~\masyr\ were extracted from the catalogue. Those within 0.2~deg of the cluster position were selected as `cluster' stars, and those outside that as a `field' sample. This `cluster' sample and the surrounding field are shown in Fig.\ \ref{fig:cmd} with their position on the sky, proper motion, colour-magnitude, radial velocity and parallax. The proper motions of the cluster sample are clearly clumped, and the CMD shows the red giant branch (RGB) and horizontal branch (HB) morphology of an ancient, metal-poor stellar population in both the \textit{Gaia} and DECaPS filters. The parallaxes of the likely members of FSR1758 are indistinguishable from zero within the uncertainties (expected for an object at 11~kpc), but show a clear offset from the parallax distribution of the surrounding field stars (Fig.\ \ref{fig:cmd}f).
 
-\citet{Barba2018} estimated the tidal radius to be $0.78\pm0.22$~deg, so we extended the search for possible members further out. Within the surrounding 1~deg, there is one further star with a large RV ($v_r=233.0$~km/s), and it is consistent with the tip of the GB. The slight discrepancy between 233~km/s and 227~km/s is consistent with the dispersion seen in other globular clusters \cite[e.g., $\omega$~Cen has a velocity dispersion of $\sim10$~km/s;][]{Johnson:2010fs}.
+Of the 1345 likely cluster stars within 0.2~deg, five stars had radial velocities ($v_r$) measured by the \textit{Gaia} RVS: three of the five stars have $226.5<v_r<227.8\kms$, while the other two stars have $v_r=-30\kms$ and $20\kms$ (respectively filled and unfilled red stars on Fig.\ \ref{fig:cmd}). The three stars with high $v_r$ are all found at the tip of the giant branch of FSR1758 (Fig.\ \ref{fig:cmd}c), and have smaller parallaxes than most of the other stars with radial velocities. We conclude that these three stars are members of FSR1758, and that the radial velocity of the cluster is $v_r=227\pm1$\kms.
 
-Unfortunately the spectra used by Gaia to measure the radial velocities was not made public in this data release. It is not possible to estimate a metallicity for the cluster from these data.
+\citetalias{Barba2018} estimated the tidal radius to be $0.78\pm0.22$~deg, so we extended the search for possible members beyond the initial $0.2$~deg sample. Within the surrounding 1~deg, there is one additional star with a large radial velocity ($v_r=233.0\kms$; black filled star on Fig.\ \ref{fig:cmd})), and it is, like the three stars above, compatible with the proper motion, parallax, and photometry of the cluster. The difference between 233\kms\ and 227\kms\ is consistent with the dispersion seen in other globular clusters \cite[e.g., $\omega$~Cen has a velocity dispersion of $\sim10\kms$;][]{Johnson:2010fs}.
 
-%Unfortunately the RUWE of one of these cluster members is 1.7. \citep{Lindegren2018}.
+The \textit{Gaia} RVS spectra were not made public in DR2, so we cannot estimate a metallicity for FSR1758. There do not appear to have been any serendipitous spectroscopic observations of the cluster. Unfortunately it is outside the footprints of RAVE \citep{Kunder:2017gp}, GALAH \citep{DeSilva:2015gr,Buder2018}, APOGEE-2 \citep{Zasowski:2017jy} and other bulge spectroscopic surveys \citep[e.g.,][]{Freeman2013,Zoccali2014,Howes:2016ji}.
 
-\section{Orbit}
-
-With a radial velocity, it is now possible to estimate an orbit for FSR1758. We use the \textsc{gala} (version 0.3) \citep{M.Price-Whelan2017,Price-Whelan2018b}, with the default potential \texttt{MilkyWayPotential}. This is a simple mass-model for the Milky Way consisting of a spherical nucleus and bulge, a Miyamoto-Nagai disk, and a spherical NFW dark matter halo. The parameters of this model are set to match the circular velocity profile and disk properties of \citet{Bovy:2015gg}. We place the Sun at a Galactocentric distance of 8.2~kpc, and height above the plane of 25~pc \citep{BlandHawthorn:2016iq, Bland-hawthorn2018}. The Sun's velocity were $(U_\odot,V_\odot,W_\odot)=(11,248,7.25)$~km/s \citep{Schonrich2012}. The cluster position and velocity were $(\alpha,\delta,D_\odot,\mu_\mathrm{RA},\mu_\mathrm{Dec},v_r)=(262.806^\circ,-39.822^\circ,11.5\pm1.0~\mathrm{kpc},-2.85\pm0.1~\mathrm{mas/yr},2.55\pm0.1~\mathrm{mas/yr},227\pm1~\mathrm{km/s})$. Errors were estimated by taking 1000 samples of the error distributions and finding the 16th and 84th percentiles of the given result.
+\section{Orbit}\label{sec:orbit}
 
 \begin{figure*}
 	\includegraphics[width=\textwidth]{figures/orbit.pdf}
-    \caption{The computed orbit for FSR1758 projected into cartesian space centred on the Galactic Centre. The red line is the orbit from the nominal values, and the blue lines show 100 orbits randomly sampling the error distributions of the input parameters. The black dot shows the position of FSR1758 as observed now.}
+    \caption{The previous 1.25~Gyr of the orbit of FSR1758 projected into Cartesian space centred on the Galactic Centre. The red line is the orbit from the nominal values of the phase space coordinates, and the blue lines show 100 orbits randomly sampling the error distributions of the input parameters. The black dot shows the observed position of FSR1758.}
     \label{fig:orbit}
 \end{figure*}
 
 \begin{figure*}
 	\includegraphics[width=\textwidth]{figures/orbit_comparison.pdf}
-    \caption{Comparison of the orbit of FSR1758 to other globular clusters. Input parameters for all clusters were taken from \citet{Vasiliev:2018uf}, except for Djorgovski~1 and Terzan~10 which are from \citet{Ortolani2019}. In panels (a) and (b) the straight lines shows the one-to-one line. For panel (a) a cluster on this line would have a circular orbit. In panel (b) a cluster on this line is being observed at apocentre. As well as FSR1758, a number of clusters of interested are noted. Djorgovski~1 and Terzan~10 were recently found by \citet{Ortolani2019} to be halo interlopers to the bulge. The rest are multi-metallicity clusters, for which there is the potential for them to be dwarf galaxy remnants.}
+    \caption{Comparison of the orbit of FSR1758 to other globular clusters. In panels (a) and (b) the shaded region indicates a distance of 3~kpc (i.e., the radius of the Milky Way bulge), and the straight lines show the one-to-one line. For panel (a) a cluster on this line would have a circular orbit, and in panel (b) a cluster on this line is being observed at apocentre. As well as FSR1758, a number of clusters of interest are highlighted. Djorgovski~1 and Terzan~10 were recently found by \citet{Ortolani2019} to be halo interlopers in the bulge. M54, M2, M22, $\omega$~Cen have been found to be multi-metallicity clusters, and could therefore be stripped dwarf galaxy cores. NGC2419, NGC3201, IC4499 have large angular momentum orbits.}
     \label{fig:orbit_comparison.pdf}
 \end{figure*}
 
-The cluster is found to have a radial orbit, with a pericentre of $3.79_{-0.80}^{+0.91}$~kpc, an apocentre of $16.40_{-5.07}^{+7.48}$~kpc, and eccentricity of $0.62_{-0.04}^{+0.05}$. In Figure \ref{fig:orbit} is the plot of the previous 1~Gyr of the orbit of FSR1758 as well as 100 other possible orbits sampling the error distributions. Figure \ref{fig:orbit_comparison.pdf} shows how the orbit of FSR17578 compares to the orbit of other known clusters using data taken from \citet{Vasiliev:2018uf} for all clusters except Djorgovski~1 and Terzan~10 which is from \citet{Ortolani2019}.
+It is now possible to calculate the orbit of FSR1758. We used \textsc{gala} \citep[version 0.3;][]{Price-Whelan2017a,Price-Whelan2018b}, with the default potential \texttt{MilkyWayPotential}. This is a simple mass-model for the Milky Way consisting of a spherical nucleus and bulge, a Miyamoto-Nagai disk, and a spherical NFW dark matter halo. The parameters of this model are set to match the circular velocity profile and disk properties of \citet{Bovy:2015gg}. We place the Sun at a Galactocentric distance of $R_\mathrm{GC}=8.2$~kpc and a height above the plane of 25~pc \citep{BlandHawthorn:2016iq}. The Sun's velocity is taken to be $(U_\odot,V_\odot,W_\odot)=(11.0,248.0,7.25)\kms$ \citep{Schonrich2012}. The position and velocity of FSR1758 were $(\alpha,\delta,D_\odot,\mu_\mathrm{RA},\mu_\mathrm{Dec},v_r)=(262.806^\circ,-39.822^\circ,11.5\pm1.0~\mathrm{kpc},-2.85\pm0.1~\mathrm{\masyr},2.55\pm0.1~\mathrm{\masyr},227\pm1~\mathrm{\kms})$. Errors in the calculated orbital parameters were estimated by taking 1000 samples of the error distributions and finding the 16th and 84th percentiles of the given results.
 
-FSR1758 is currently located at a Galactocentric distance of $r_g = 3.76_{-0.82}^{+1.00}$~kpc, placing at the edge of the Milky Way bulge \citep[$\sim2$~kpc across;][]{Barbuy2018}. But we find that it is not a cluster that lives in the inner Galaxy like, e.g., Terzan~5. Instead it is a halo intruder into the inner Galaxy, like Djorgovski~1 and Terzan~10 \citep{Ortolani2019}. We have caught FSR1758 at the pericentre of its orbit.
+Fig.\ \ref{fig:orbit} shows the previous 1.25~Gyr of its orbit (red line), as well as 100 other possible orbits over the same time interval created by sampling the error distributions (blue lines). Fig.\ \ref{fig:orbit_comparison.pdf} shows how the orbit of FSR17578 compares to the orbit of other known globular clusters, with input data from \citet{Vasiliev:2018uf}. The orbits were calculated in the same manner as FSR1758 (i.e., using \texttt{gala} with the input values for the Milky Way and Sun as described above).
 
-One of the unresolved questions of \citet{Barba2018} was whether FSR1758 is a dwarf galaxy or globular cluster. Overall, the orbital properties of FSR1758 do not distinguish it from other globular clusters, or potential dwarf galaxy cores (e.g., M54, $\omega$~Cen). We find that FSR1758 has quite a retrograde orbit compared to most other clusters. However it is not extreme; there are a number of clusters with $L_z > 1000$~kpc\,km/s, including objects, e.g., IC4499 has a similar angular momentum and apocentre (though much larger pericentre).
+FSR1758 is found to have a radial, retrograde orbit, with a pericentre of $3.8_{-0.9}^{+0.9}$~kpc, an apocentre of $16_{-5}^{+8}$~kpc, and eccentricity of $0.62_{-0.04}^{+0.05}$.  FSR1758 is currently located at a Galactocentric distance of $R_\mathrm{GC} = 3.8_{-0.9}^{+0.9}$~kpc, placing it at the edge of the Milky Way bulge \citep[clusters within $\sim3$~kpc of the Galactic centre tend to be classified as `bulge' clusters;][]{Barbuy2018}. But we find that it is not a cluster that lives in the inner Galaxy like, e.g., Terzan~5. Instead it is a halo intruder into the inner Galaxy, like Djorgovski~1 and Terzan~10 \citep{Ortolani2019}. We have caught FSR1758 near the pericentre of its orbit.
 
-%\citet{Barba2018} found that there was a large halo of common proper motion stars around the cluster. With this in mind, we searched for evidence of a tidal streams around the cluster. To aid the search a mock stream was created using \textsc{gala} using the prescription from \citet{Fardal2015}. This enabled us to understand the evolution of proper motions and radial velocities along the stream. Being conservative, we restricted our search to within 10~deg of FSR1758. We found that stream stars within this search radius would have $v_r>180$~km/s and proper motions would remain within the 1.2 mas/yr search radius defined earlier. 
+\section{Is FSR1758 a dwarf galaxy or globular cluster?}\label{sec:halo}
 
-\section{Discussion}
+\begin{figure}
+	\includegraphics[width=\columnwidth]{figures/not_a_halo.pdf}
+    \caption{The same as Fig.\ \ref{fig:cmd}, but for stars within 2~deg of FSR1758 with parallaxes $<3$~mas, to recreate the analysis of \citetalias{Barba2018}. Highlighted are stars that fall along a locus similar to that of \citetalias{Barba2018} from which they identified that there was a large halo of common proper motion stars surrounding FSR1758. Considering the distributions of proper motion, colour and parallax, we conclude that the majority of this `halo' are field stars that are coincidently share the proper motion of FSR1758.}
+    \label{fig:not_a_halo}
+\end{figure}
 
-\citet{Barba2018} claimed that there was a large halo of common proper motion stars around the cluster. However, repeating their analysis, selecting common proper motion stars along the locus of the RGB and HB, we find that many of these stars are likely field stars along the line of sight. Most are found in the colour gap between the HB and the RGB and their location in proper motion space not strongly clumped like that of the true cluster members.
+One of the unresolved questions of \citetalias{Barba2018} was whether FSR1758 is a dwarf galaxy or globular cluster. The orbital properties of FSR1758 do not distinguish it from other globular clusters, or proposed stripped dwarf galaxy cores (e.g., M54, $\omega$~Cen). We find that FSR1758 has quite a retrograde orbit (i.e., large $L_z$) compared to most other clusters. Clusters with retrograde orbits are characterized as being accreted by the Milky Way rather than forming in situ \citep[e.g.,][]{Kruijssen2018}. The large retrograde component of the inner halo of the Milky Way found in \textit{Gaia} DR2 has been associated with a number of globular clusters, including $\omega$~Cen \citep{Helmi:2018wy}, but these have smaller $L_z$ than FSR1758, so we do not associated FSR1758 with \textit{Gaia}-Enceladus. An intriguing future direction of research is to look if any of the large number of stellar streams are being found in \textit{Gaia} and other surveys \citep[e.g.,][]{Shipp2018,Ibata:2018wn,Malhan:2018ko,Ibata2019} are related to FSR1758.
 
-Unfortunately there do not appear to have been any more serendipitous spectroscopic observations of members of this cluster. In the case of the large all-sky surveys RAVE \citep{Kunder:2017gp} and GALAH \citep{DeSilva:2015gr,Buder2018}, FSR1758 is too far into the Galactic plane for their observing footprints. Searches of the AAT, ESO, or Gemini archives fail to find any likely observations of cluster members made during bulge star surveys.
+Part of the reasoning for the claim in \citetalias{Barba2018} that that FSR1758 could be a dwarf galaxy is a large `halo' of common proper motion stars around the cluster, which they interpreted as possibly being tidal debris or that FSR1758 was the nucleus of a dwarf galaxy. In Fig.\ \ref{fig:not_a_halo}, we repeat their analysis: stars along a locus formed by the RGB and HB within 2~deg of the cluster, with parallax $<0.3$~mas and proper motions within $1.2\masyr$ of the nominal cluster value. We divide this selection of stars into a `cluster' and 'halo' sample based upon angular distance from the cluster (cut at 0.2~deg).
 
-We reiterate the words of \citet{Barba2018} that ``acid test for this cluster will be to obtain spectra for a number of members''. This will enable a much better characterization of its line-of-sight velocity dispersion, metallicity, and other abundance distributions. With only four stars, it is not possible to make any comments about the radial velocity dispersion, and therefore the mass-to-light ratio of FSR1758.
+We conclude that the majority of this halo of stars are not truly associated with FSR1758, but are instead mostly foreground field dwarf stars. There is a clear colour gap between the HB and RGB, especially obvious in the DECaPS photometry (Fig.\ \ref{fig:not_a_halo}d). Only 11 per cent (37/335) of the `cluster' stars are found in colour range $1.1<g-i<2.0$,  while for the `halo' sample it is 59 per cent (134/226). This gap corresponds to the field dwarf sequence along the line of sight (Fig.\ \ref{fig:cmd}c,d). FSR1758 shows an obvious blue horizontal branch, but almost none of the halo sample is found in this region of the CMD. The halo sample is not clumped in proper motion space like the cluster stars (Fig.\ \ref{fig:not_a_halo}b). Comparing the parallax distributions of the cluster and halo (Fig.\ \ref{fig:not_a_halo}f), the `halo' does not peak at $\sim0.1$~mas like the cluster and is simply the low parallax selection of the broader field parallax distribution (Fig.\ \ref{fig:cmd}f).
+
+It is possible that a few of these common proper motion stars are extra-tidal stars, as these are known around other globular clusters \citep[e.g.,][]{Simpson:2017be}, but the majority are unlikely to be related. We do not discount the idea that FSR1758 could be the stripped core of a dwarf galaxy (e.g., like $\omega$~Cen, M54) and it should be a high priority to observe this cluster to see if it has a metallicity spread.
+
+\section{Conclusion}
+We have identified four members of FSR1758 that have radial velocities measured by the \textit{Gaia} RVS. Combined with the previously derived information about the cluster from \citetalias{Barba2018}, this allows us to calculate an orbit for the cluster which showed that it is a halo intruder into the inner Galaxy. We conclude that a possible large halo of common proper motion stars around the cluster are in fact likely to be less distant field stars. 
+
+We reiterate the words of \citetalias{Barba2018} that ``acid test for this cluster will be to obtain spectra for a number of members''. This will enable a much better characterization of its line-of-sight velocity dispersion, metallicity, and other abundance distributions. With only four stars, it is not possible to make any meaningful comments about the radial velocity dispersion, and therefore the mass-to-light ratio of FSR1758.
 
 \section*{Acknowledgements}
 
 JDS acknowledges the support of the Australian Research Council through Discovery Project grant DP180101791.
+
+The following software and programming languages made this research possible: \textsc{astropy} \citep[v3.1;][]{TheAstropyCollaboration:2018ti,TheAstropyCollaboration2018}, a community-developed core Python package for Astronomy; \textsc{gala} \citep[v3.0;][]{Price-Whelan2017a,Price-Whelan2018b}; \textsc{pandas} \citep[v0.20.3;][]{McKinney:2010un}; \textsc{seaborn} \citep[v0.8.1;][]{Waskom2018}; Tool for OPerations on Catalogues And Tables \citep[\textsc{topcat}, v4.5;][]{Taylor:2005wx,Taylor:2006wv}
+
+This work has made use of data from the European Space Agency (ESA) mission {\it Gaia} (\url{https://www.cosmos.esa.int/gaia}), processed by the {\it Gaia} Data Processing and Analysis Consortium (DPAC, \url{https://www.cosmos.esa.int/web/gaia/dpac/consortium}). Funding for the DPAC has been provided by national institutions, in particular the institutions participating in the {\it Gaia} Multilateral Agreement.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%
 
 % The best way to enter references is to use BibTeX:
+%\bibliographystyle{mnras}
+%\bibliography{/Users/jeffrey/Documents/library.bib}
+\begin{thebibliography}{}
+\makeatletter
+\relax
+\def\mn@urlcharsother{\let\do\@makeother \do\$\do\&\do\#\do\^\do\_\do\%\do\~}
+\def\mn@doi{\begingroup\mn@urlcharsother \@ifnextchar [ {\mn@doi@}
+  {\mn@doi@[]}}
+\def\mn@doi@[#1]#2{\def\@tempa{#1}\ifx\@tempa\@empty \href
+  {http://dx.doi.org/#2} {doi:#2}\else \href {http://dx.doi.org/#2} {#1}\fi
+  \endgroup}
+\def\mn@eprint#1#2{\mn@eprint@#1:#2::\@nil}
+\def\mn@eprint@arXiv#1{\href {http://arxiv.org/abs/#1} {{\tt arXiv:#1}}}
+\def\mn@eprint@dblp#1{\href {http://dblp.uni-trier.de/rec/bibtex/#1.xml}
+  {dblp:#1}}
+\def\mn@eprint@#1:#2:#3:#4\@nil{\def\@tempa {#1}\def\@tempb {#2}\def\@tempc
+  {#3}\ifx \@tempc \@empty \let \@tempc \@tempb \let \@tempb \@tempa \fi \ifx
+  \@tempb \@empty \def\@tempb {arXiv}\fi \@ifundefined
+  {mn@eprint@\@tempb}{\@tempb:\@tempc}{\expandafter \expandafter \csname
+  mn@eprint@\@tempb\endcsname \expandafter{\@tempc}}}
 
-\bibliographystyle{mnras}
-\bibliography{/Users/jeffrey/Documents/library.bib}
+\bibitem[\protect\citeauthoryear{Barb{\'{a}}, Minniti, Geisler,
+  Alonso-Garc{\'{i}}a, Hempel, Monachesi, Arias  \& G{\'{o}}mez}{Barb{\'{a}}
+  et~al.}{2019}]{Barba2018}
+Barb{\'{a}} R.~H.,  Minniti D.,  Geisler D.,  Alonso-Garc{\'{i}}a J.,  Hempel
+  M.,  Monachesi A.,  Arias J.~I.,   G{\'{o}}mez F.~A.,  2019, \mn@doi [\apj]
+  {10.3847/2041-8213/aaf811}, 870, L24
+
+\bibitem[\protect\citeauthoryear{Barbuy, Chiappini  \& Gerhard}{Barbuy
+  et~al.}{2018}]{Barbuy2018}
+Barbuy B.,  Chiappini C.,   Gerhard O.,  2018, \mn@doi [\araa]
+  {10.1146/annurev-astro-081817-051826}, 56, 223
+
+\bibitem[\protect\citeauthoryear{Bland-Hawthorn \& Gerhard}{Bland-Hawthorn \&
+  Gerhard}{2016}]{BlandHawthorn:2016iq}
+Bland-Hawthorn J.,  Gerhard O.,  2016, \mn@doi [\araa]
+  {10.1146/annurev-astro-081915-023441}, 54, 529
+
+\bibitem[\protect\citeauthoryear{Bovy}{Bovy}{2015}]{Bovy:2015gg}
+Bovy J.,  2015, \mn@doi [AJSS] {10.1088/0067-0049/216/2/29}, 216, 29
+
+\bibitem[\protect\citeauthoryear{Brown et~al.,}{Brown
+  et~al.}{2018}]{GaiaCollaboration:2018io}
+Brown A. G.~A.,  et~al., 2018, \mn@doi [\aap] {10.1051/0004-6361/201833051},
+  616, A1
+
+\bibitem[\protect\citeauthoryear{Buder et~al.,}{Buder et~al.}{2018}]{Buder2018}
+Buder S.,  et~al., 2018, \mn@doi [\mnras] {10.1093/mnras/sty1281}, 478, 4513
+
+\bibitem[\protect\citeauthoryear{Cantat-Gaudin et~al.,}{Cantat-Gaudin
+  et~al.}{2018}]{Cantat-Gaudin2018}
+Cantat-Gaudin T.,  et~al., 2018, \mn@doi [\aap] {10.1051/0004-6361/201833476},
+  618, A93
+
+\bibitem[\protect\citeauthoryear{Cropper et~al.,}{Cropper
+  et~al.}{2018}]{Cropper2018}
+Cropper M.,  et~al., 2018, \mn@doi [\aap] {10.1051/0004-6361/201832763}, 616,
+  A5
+
+\bibitem[\protect\citeauthoryear{{De Silva} et~al.,}{{De Silva}
+  et~al.}{2015}]{DeSilva:2015gr}
+{De Silva} G.~M.,  et~al., 2015, \mn@doi [\mnras] {10.1093/mnras/stv327}, 449,
+  2604
+
+\bibitem[\protect\citeauthoryear{Freeman et~al.,}{Freeman
+  et~al.}{2013}]{Freeman2013}
+Freeman K.,  et~al., 2013, \mn@doi [\mnras] {10.1093/mnras/sts305}, 428, 3660
+
+\bibitem[\protect\citeauthoryear{Helmi, Babusiaux, Koppelman, Massari,
+  Veljanoski  \& Brown}{Helmi et~al.}{2018}]{Helmi:2018wy}
+Helmi A.,  Babusiaux C.,  Koppelman H.~H.,  Massari D.,  Veljanoski J.,   Brown
+  A. G.~A.,  2018, \mn@doi [\nat] {10.1038/s41586-018-0625-x}, 563, 85
+
+\bibitem[\protect\citeauthoryear{Howes et~al.,}{Howes
+  et~al.}{2016}]{Howes:2016ji}
+Howes L.~M.,  et~al., 2016, \mn@doi [\mnras] {10.1093/mnras/stw1004}, 460, 884
+
+\bibitem[\protect\citeauthoryear{Ibata, Malhan, Martin  \& Starkenburg}{Ibata
+  et~al.}{2018}]{Ibata:2018wn}
+Ibata R.~A.,  Malhan K.,  Martin N.~F.,   Starkenburg E.,  2018, \mn@doi [\apj]
+  {10.3847/1538-4357/aadba3}, 865, 85
+
+\bibitem[\protect\citeauthoryear{Ibata, Malhan  \& Martin}{Ibata
+  et~al.}{2019}]{Ibata2019}
+Ibata R.,  Malhan K.,   Martin N.,  2019, preprint (\mn@eprint {arXiv}
+  {1901.07566})
+
+\bibitem[\protect\citeauthoryear{Johnson \& Pilachowski}{Johnson \&
+  Pilachowski}{2010}]{Johnson:2010fs}
+Johnson C.~I.,  Pilachowski C.~A.,  2010, \mn@doi [\apj]
+  {10.1088/0004-637X/722/2/1373}, 722, 1373
+
+\bibitem[\protect\citeauthoryear{Katz et~al.,}{Katz
+  et~al.}{2018}]{GaiaCollaboration:2018fx}
+Katz D.,  et~al., 2018, \mn@doi [\aap] {10.1051/0004-6361/201832865}, 616, A11
+
+\bibitem[\protect\citeauthoryear{Kos et~al.,}{Kos et~al.}{2018}]{Kos:2018we}
+Kos J.,  et~al., 2018, \mn@doi [\mnras] {10.1093/mnras/sty2171}, 480, 5242
+
+\bibitem[\protect\citeauthoryear{Kruijssen, Pfeffer, Reina-Campos, Crain  \&
+  Bastian}{Kruijssen et~al.}{2018}]{Kruijssen2018}
+Kruijssen J. M.~D.,  Pfeffer J.~L.,  Reina-Campos M.,  Crain R.~A.,   Bastian
+  N.,  2018, \mn@doi [\mnras] {10.1093/mnras/sty1609}
+
+\bibitem[\protect\citeauthoryear{Kunder et~al.,}{Kunder
+  et~al.}{2017}]{Kunder:2017gp}
+Kunder A.,  et~al., 2017, \mn@doi [\aj] {10.3847/1538-3881/153/2/75}, 153, 75
+
+\bibitem[\protect\citeauthoryear{Malhan, Ibata, Goldman, Martin, Magnier  \&
+  Chambers}{Malhan et~al.}{2018}]{Malhan:2018ko}
+Malhan K.,  Ibata R.~A.,  Goldman B.,  Martin N.~F.,  Magnier E.,   Chambers
+  K.,  2018, \mn@doi [\mnras] {10.1093/mnras/sty1338}, 478, 3862
+
+\bibitem[\protect\citeauthoryear{McKinney}{McKinney}{2010}]{McKinney:2010un}
+McKinney W.,  2010, in Proc. 9th Python Sci. Conf.. pp 51--56
+
+\bibitem[\protect\citeauthoryear{Ortolani, Nardiello, Perez-Villegas, Bica  \&
+  Barbuy}{Ortolani et~al.}{2018}]{Ortolani2019}
+Ortolani S.,  Nardiello D.,  Perez-Villegas A.,  Bica E.,   Barbuy B.,  2018,
+  \mn@doi [\aap] {10.1051/0004-6361/201834477}
+
+\bibitem[\protect\citeauthoryear{Price-Whelan}{Price-Whelan}{2017}]{Price-Whelan2017a}
+Price-Whelan A.~M.,  2017, \mn@doi [J. Open Source Softw.]
+  {10.21105/joss.00388}, 2, 388
+
+\bibitem[\protect\citeauthoryear{Price-Whelan, Sipocz, Daniel, Major  \&
+  Oh}{Price-Whelan et~al.}{2018a}]{Price-Whelan2018b}
+Price-Whelan A.,  Sipocz B.,  Daniel Major S.,   Oh S.,  2018a, adrn/gala:
+  v0.3, \mn@doi{10.5281/zenodo.1227457}
+
+\bibitem[\protect\citeauthoryear{Price-Whelan et~al.,}{Price-Whelan
+  et~al.}{2018b}]{TheAstropyCollaboration:2018ti}
+Price-Whelan A.~M.,  et~al., 2018b, \mn@doi [\aj] {10.3847/1538-3881/aabc4f},
+  156, 123
+
+\bibitem[\protect\citeauthoryear{Schlafly et~al.,}{Schlafly
+  et~al.}{2018}]{Schlafly2018}
+Schlafly E.~F.,  et~al., 2018, \mn@doi [AJSS] {10.3847/1538-4365/aaa3e2}, 234,
+  39
+
+\bibitem[\protect\citeauthoryear{Sch{\"{o}}nrich}{Sch{\"{o}}nrich}{2012}]{Schonrich2012}
+Sch{\"{o}}nrich R.,  2012, \mn@doi [\mnras] {10.1111/j.1365-2966.2012.21631.x},
+  427, 274
+
+\bibitem[\protect\citeauthoryear{Shipp et~al.,}{Shipp et~al.}{2018}]{Shipp2018}
+Shipp N.,  et~al., 2018, \mn@doi [\apj] {10.3847/1538-4357/aacdab}, 862, 114
+
+\bibitem[\protect\citeauthoryear{Simpson, Martell  \& Navin}{Simpson
+  et~al.}{2017a}]{Simpson:2017be}
+Simpson J.~D.,  Martell S.~L.,   Navin C.~A.,  2017a, \mn@doi [\mnras]
+  {10.1093/mnras/stw2781}, 465, 1123
+
+\bibitem[\protect\citeauthoryear{Simpson et~al.,}{Simpson
+  et~al.}{2017b}]{Simpson:2017ex}
+Simpson J.~D.,  et~al., 2017b, \mn@doi [\mnras] {10.1093/mnras/stx1892}, 471,
+  4087
+
+\bibitem[\protect\citeauthoryear{Soubiran et~al.,}{Soubiran
+  et~al.}{2018}]{Soubiran2018}
+Soubiran C.,  et~al., 2018, \mn@doi [\aap] {10.1051/0004-6361/201834020}, 619,
+  A155
+
+\bibitem[\protect\citeauthoryear{Taylor}{Taylor}{2005}]{Taylor:2005wx}
+Taylor M.~B.,  2005, in Shopbell P.,  Britton M.,   Ebert R.,  eds, ADASS XIV.
+  p.~29
+
+\bibitem[\protect\citeauthoryear{Taylor}{Taylor}{2006}]{Taylor:2006wv}
+Taylor M.~B.,  2006, in Gabriel C.,  Arviset C.,  Ponz D.,   Enrique S.,  eds,
+  ADASS XV. p.~666
+
+\bibitem[\protect\citeauthoryear{{{The Astropy Collaboration}}}{{{The Astropy
+  Collaboration}}}{2018}]{TheAstropyCollaboration2018}
+{{The Astropy Collaboration}} 2018, astropy v3.0.4: a core python package for
+  astronomy, \mn@doi{10.5281/zenodo.1461536}
+
+\bibitem[\protect\citeauthoryear{Vasiliev}{Vasiliev}{2019}]{Vasiliev:2018uf}
+Vasiliev E.,  2019, \mn@doi [\mnras] {10.1093/mnras/stz171}
+
+\bibitem[\protect\citeauthoryear{Waskom et~al.,}{Waskom
+  et~al.}{2018}]{Waskom2018}
+Waskom M.,  et~al., 2018, {mwaskom/seaborn: v0.9.0 (July 2018)},
+  \mn@doi{10.5281/zenodo.1313201}
+
+\bibitem[\protect\citeauthoryear{Zasowski et~al.,}{Zasowski
+  et~al.}{2017}]{Zasowski:2017jy}
+Zasowski G.,  et~al., 2017, \mn@doi [\aj] {10.3847/1538-3881/aa8df9}, 154, 198
+
+\bibitem[\protect\citeauthoryear{Zoccali et~al.,}{Zoccali
+  et~al.}{2014}]{Zoccali2014}
+Zoccali M.,  et~al., 2014, \mn@doi [\aap] {10.1051/0004-6361/201323120}, 562,
+  A66
+
+\makeatother
+\end{thebibliography}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
