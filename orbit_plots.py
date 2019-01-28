@@ -10,6 +10,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 
+__author__ = "Jeffrey Simpson"
+__copyright__ = "Copyright 2019, Jeffrey Simpson"
+__credits__ = ["Jeffrey Simpson"]
+__license__ = "MIT"
+__version__ = "0.0.1"
+__maintainer__ = "Jeffrey Simpson"
+__email__ = "jeffrey.simpson@unsw.edu.au"
+__status__ = "Development"
+
 sns.set_context("paper", font_scale=0.8)
 
 
