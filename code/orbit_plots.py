@@ -101,7 +101,7 @@ axes[2].scatter(icrs.transform_to(gc_frame).cartesian.y,
                 zorder=1000, s=4)
 fsr1758_orbit_errors.plot(color='C0', alpha=0.1, lw=0.3, axes=fig.axes)
 fig.align_labels()
-plt.savefig("../fsr1758_paper/figures/orbit.pdf", bbox_inches='tight')
+plt.savefig("../paper/figures/orbit.pdf", bbox_inches='tight')
 
 print("Now redo the orbits with lots of samples")
 

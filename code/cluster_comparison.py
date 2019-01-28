@@ -177,5 +177,5 @@ axes[0].set_ylim(1, 110)
 axes[1].set_xlim(0.4, 130)
 
 fig.align_labels()
-plt.savefig("../fsr1758_paper/figures/orbit_comparison.pdf",
+plt.savefig("../paper/figures/orbit_comparison.pdf",
             bbox_inches='tight')

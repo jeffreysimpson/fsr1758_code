@@ -123,4 +123,4 @@ for axes_count, ax in enumerate(axes.flatten()):
                            **plot_kwargs[idx_count], zorder=100)
 
 # fig.align_labels()
-plt.savefig("../fsr1758_paper/figures/cmd.pdf", bbox_inches='tight')
+plt.savefig("../paper/figures/cmd.pdf", bbox_inches='tight')

@@ -102,4 +102,4 @@ for axes_count, ax in enumerate(axes.flatten()):
                         color=plot_kwargs[idx_count]['c'])
 
 # fig.align_labels()
-plt.savefig("../fsr1758_paper/figures/not_a_halo.pdf", bbox_inches='tight')
+plt.savefig("../paper/figures/not_a_halo.pdf", bbox_inches='tight')
