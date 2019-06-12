@@ -44,7 +44,7 @@ xy_values = [['ra', 'dec'],
              ['bp_rp', 'phot_g_mean_mag'],
              ['g_i', 'gmag'],
              ['cluster_distance', 'radial_velocity'],
-             ['parallax', ]]
+             ['parallax', 'phot_g_mean_mag']]
 
 axes_labels = [['RA (deg)', 'Dec (deg)'],
                [r'$\mu_\mathrm{RA}$ (mas yr$^{-1}$)',
@@ -52,7 +52,7 @@ axes_labels = [['RA (deg)', 'Dec (deg)'],
                [r'$G_\mathrm{BP}-\mathrm{G_{RP}}$', r'$G$'],
                [r'$g-i$', r'$g$'],
                ['Angular distance (deg)', r'$v_r$ (km s$^{-1}$'],
-               ['parallax (mas)', 'Number of stars']]
+               [r'$\varpi$ (mas)', r'$G$']]
 
 idx_list = [cluster_pm_idx & ~cluster_pos_idx & ~has_rv_idx,
             cluster_pm_idx & cluster_pos_idx & ~has_rv_idx,
@@ -89,8 +89,8 @@ plot_limits = [[[ra-box, ra+box], [dec-(box-0.25), dec+(box-0.25)]],
                [[-2.85-1.3, -2.85+1.3], [2.55-1.3, 2.55+1.3]],
                [[0.7, 3.1], [20.5, 10]],
                [[0.5, 3.0], [21.5, 13]],
-               [[0, 1.1], [-160, 250]],
-               [[-2, 2], []]]
+               [[0.0, 1.1], [-160, 250]],
+               [[-2, 2], [20.5, 10]]]
 
 fig, axes = plt.subplots(ncols=3, nrows=2, figsize=(3.32*2, 4.5),
                          constrained_layout=True)
@@ -101,26 +101,11 @@ for axes_count, ax in enumerate(axes.flatten()):
     ax.set_xlim(plot_limits[axes_count][0])
     ax.annotate(panel_labels[axes_count], (0.85, 0.92),
                 xycoords='axes fraction')
-    if axes_count != 5:
-        ax.set_ylim(plot_limits[axes_count][1])
+    ax.set_ylim(plot_limits[axes_count][1])
     for idx_count, idx in enumerate(idx_list):
-        if axes_count != 5:
-            ax.scatter(fsr1758[xy_values[axes_count][0]][idx],
-                       fsr1758[xy_values[axes_count][1]][idx],
-                       **plot_kwargs[idx_count])
-        else:
-            if idx_count < 2:
-                ax.hist(fsr1758[xy_values[axes_count][0]][idx],
-                        bins=np.arange(-2, 2, 0.05), histtype='step',
-                        color=plot_kwargs[idx_count]['c'])
-            if idx_count > 1:
-                if idx_count in [2, 3]:
-                    offset = 10
-                if idx_count in [4, 5]:
-                    offset = 15
-                ax.scatter(fsr1758[xy_values[axes_count][0]][idx],
-                           np.random.randn(np.sum(idx))+offset,
-                           **plot_kwargs[idx_count], zorder=100)
-
-# fig.align_labels()
+        if axes_count == 2:
+            idx = idx & good_photom_idx(gaia_1p5deg, FITS=True)
+        ax.scatter(fsr1758[xy_values[axes_count][0]][idx],
+                   fsr1758[xy_values[axes_count][1]][idx],
+                   **plot_kwargs[idx_count])
 plt.savefig("../paper/figures/cmd.pdf", bbox_inches='tight')
