@@ -2,9 +2,7 @@
 
 """common_code.py: Loads the tables and provides common masks and others."""
 
-import matplotlib.pyplot as plt
 import numpy as np
-import seaborn as sns
 from astropy import units as u
 from astropy.coordinates import SkyCoord
 from astropy.io import fits
@@ -35,13 +33,18 @@ def good_astrom_func(table):
     return table['ruwe'] < 1.4
 
 
-def common_idx(table):
+def open_file(file_name):
+    gaia_1p5deg = fits.open(file_name)
+    fsr1758 = gaia_1p5deg[1].data
     """Returns a couple of common masks."""
-    c = SkyCoord(ra=table['ra']*u.degree,
-                 dec=table['dec']*u.degree, frame='icrs')
+    c = SkyCoord(ra=fsr1758['ra']*u.degree,
+                 dec=fsr1758['dec']*u.degree, frame='icrs')
     cluster_centre = SkyCoord(ra=262.806*u.degree,
                               dec=-39.822*u.degree, frame='icrs')
     cluster_pos_idx = c.separation(cluster_centre) < 0.2*u.deg
-    cluster_pm_idx = np.sqrt((table['pmra']--2.85)**2 +
-                             (table['pmdec']-2.55)**2) < 1.2
-    return cluster_pos_idx, cluster_pm_idx
+    cluster_pm_idx = np.sqrt((fsr1758['pmra']--2.85)**2 +
+                             (fsr1758['pmdec']-2.55)**2) < 1.2
+    good_photom_idx = good_photom_func(fsr1758)
+    good_astrom_idx = good_astrom_func(fsr1758)
+    return (fsr1758, cluster_pos_idx, cluster_pm_idx,
+            good_photom_idx, good_astrom_idx)
