@@ -20,27 +20,19 @@ __email__ = "jeffrey.simpson@unsw.edu.au"
 __status__ = "Development"
 
 
-def good_photom_idx(table, FITS=False):
+def good_photom_func(table):
     """Use the photometric quality criteria from Evans+2018."""
-    if FITS:
-        bp_rp_excess = table[1].data['phot_bp_rp_excess_factor']
-        bp_rp = table[1].data['bp_rp']
-    else:
-        bp_rp_excess = table.phot_bp_rp_excess_factor
-        bp_rp = table.bp_rp
+    bp_rp_excess = table['phot_bp_rp_excess_factor']
+    bp_rp = table['bp_rp']
     return ((bp_rp_excess <
              1.3 + 0.06*bp_rp**2) &
             (bp_rp_excess >
              1.0 + 0.015*bp_rp**2))
 
 
-def good_astrom_idx(table, FITS=False):
+def good_astrom_func(table):
     """Require the star to have good astrometry."""
-    if FITS:
-        ruwe = table[1].data['ruwe']
-    else:
-        ruwe = table.ruwe
-    return ruwe < 1.4
+    return table['ruwe'] < 1.4
 
 
 def common_idx(table):
