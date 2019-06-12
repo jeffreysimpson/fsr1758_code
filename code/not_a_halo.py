@@ -5,9 +5,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
-from astropy import units as u
-from astropy.coordinates import SkyCoord
-from astropy.io import fits
+import common_code
 
 __author__ = "Jeffrey Simpson"
 __copyright__ = "Copyright 2019, Jeffrey Simpson"
@@ -20,21 +18,24 @@ __status__ = "Development"
 
 sns.set_context("paper", font_scale=0.8)
 
-gaia_1p5deg = fits.open("../data/decam_gaia_2deg.fits")
-
-fsr1758 = gaia_1p5deg[1].data
-c = SkyCoord(ra=fsr1758['ra']*u.degree,
-             dec=fsr1758['dec']*u.degree, frame='icrs')
-cluster_centre = SkyCoord(ra=262.806*u.degree,
-                          dec=-39.822*u.degree, frame='icrs')
-cluster_pos_idx = c.separation(cluster_centre) < 0.2*u.deg
-cluster_pm_idx = np.sqrt((fsr1758['pmra']--2.85)**2 +
-                         (fsr1758['pmdec']-2.55)**2) < 1.2
+(fsr1758,
+ cluster_pos_idx,
+ cluster_pm_idx,
+ good_photom_idx,
+ good_astrom_idx) = common_code.open_file("../data/decam_gaia_2deg.fits")
 parallax_cut = fsr1758['parallax'] < 0.3
 locus_sample_idx = fsr1758['locus_sample']
-
 likely_cluster_idx = cluster_pos_idx & cluster_pm_idx
 
+field_not_locus_idx = ~cluster_pos_idx & ~locus_sample_idx
+cluster_not_locus_idx = cluster_pos_idx & ~locus_sample_idx
+field_locus_idx = ~cluster_pos_idx & locus_sample_idx
+cluster_locus_idx = cluster_pos_idx & locus_sample_idx
+
+# Require for all that they have good astrometry
+idx_list = [idx & parallax_cut & cluster_pm_idx & good_astrom_idx for idx in [
+    field_not_locus_idx, cluster_not_locus_idx,
+    field_locus_idx, cluster_locus_idx]]
 
 panel_labels = ['(a)', '(b)', '(c)', '(d)', '(e)', '(f)']
 
@@ -52,13 +53,6 @@ axes_labels = [['RA (deg)', 'Dec (deg)'],
                [r'$g-i$', r'$g$'],
                [r'$g-i$', 'Number of stars'],
                ['parallax (mas)', 'Number of stars']]
-
-idx_list = [(parallax_cut & cluster_pm_idx & ~likely_cluster_idx &
-             ~locus_sample_idx),
-            (parallax_cut & likely_cluster_idx & ~locus_sample_idx),
-            (parallax_cut & cluster_pm_idx & ~likely_cluster_idx &
-             locus_sample_idx),
-            (parallax_cut & likely_cluster_idx & locus_sample_idx)]
 
 plot_kwargs = [dict(alpha=0.5/3, s=2/2, c='#4daf4a', lw=0),
                dict(alpha=0.8/3, s=4/2, c='#984ea3', lw=0),
