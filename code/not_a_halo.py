@@ -44,7 +44,7 @@ xy_values = [['ra', 'dec'],
              ['bp_rp', 'phot_g_mean_mag'],
              ['g_i', 'gmag'],
              ['g_i', ],
-             ['parallax', ]]
+             ['parallax', 'phot_g_mean_mag']]
 
 axes_labels = [['RA (deg)', 'Dec (deg)'],
                [r'$\mu_\mathrm{RA}$ (mas yr$^{-1}$)',
@@ -52,7 +52,7 @@ axes_labels = [['RA (deg)', 'Dec (deg)'],
                [r'$G_\mathrm{BP}-\mathrm{G_{RP}}$', r'$G$'],
                [r'$g-i$', r'$g$'],
                [r'$g-i$', 'Number of stars'],
-               ['parallax (mas)', 'Number of stars']]
+               [r'$\varpi$ (mas)', r'$G$']]
 
 plot_kwargs = [dict(alpha=0.5/3, s=2/2, c='#4daf4a', lw=0),
                dict(alpha=0.8/3, s=4/2, c='#984ea3', lw=0),
@@ -67,7 +67,7 @@ plot_limits = [[[ra-box, ra+box], [dec-(box-0.1), dec+(box-0.1)]],
                [[0.7, 3.0], [20.5, 13]],
                [[0.5, 3.0], [21.5, 16]],
                [[0.5, 3.0], [-160, 250]],
-               [[-0.5, 0.5], []]]
+               [[-0.5, 0.35], [19., 13]]]
 
 fig, axes = plt.subplots(ncols=3, nrows=2, figsize=(3.32*2, 4.5),
                          constrained_layout=True)
@@ -78,10 +78,14 @@ for axes_count, ax in enumerate(axes.flatten()):
     ax.set_xlim(plot_limits[axes_count][0])
     ax.annotate(panel_labels[axes_count], (0.85, 0.92),
                 xycoords='axes fraction')
-    if axes_count < 4:
+    if axes_count != 4:
         ax.set_ylim(plot_limits[axes_count][1])
     for idx_count, idx in enumerate(idx_list):
-        if axes_count < 4:
+        if axes_count == 2:
+            idx = idx & good_photom_idx
+        if (axes_count == 5) and (idx_count < 2):
+            continue
+        if axes_count != 4:
             ax.scatter(fsr1758[xy_values[axes_count][0]][idx],
                        fsr1758[xy_values[axes_count][1]][idx],
                        **plot_kwargs[idx_count])
