@@ -48,6 +48,27 @@ idx_list = [idx & cluster_pm_idx & good_astrom_idx for idx in [
     field_stars_right_rv_idx, field_stars_wrong_rv_idx]]
 
 
+print(np.sum(likely_cluster_idx & good_astrom_idx))
+
+print("\\hline")
+print(r"source\_id & RA & Dec & $\\varpi$ & $v_r$ & \\bprp & $G$ & $\\mu_\\mathrm{RA}$ & $\\mu_\\mathrm{Dec}$ \\\\")
+print(r" & (deg) & (deg) & (mas) & (\kms) &  &  & (\masyr) & (\masyr) \\\\")
+print("\\hline")
+for idx in idx_list[2:]:
+    for star in fsr1758[idx]:
+        print_str = f"{star['source_id']} & "
+        print_str += rf"${star['ra']:0.3f}$ & "
+        print_str += rf"${star['dec']:0.3f}$ & "
+        print_str += rf"${star['parallax']:0.3f}$ & "
+        print_str += rf"${star['radial_velocity']:0.2f}$ & "
+    #     print_str += f"{star['rv_guess']:0.1f} & "
+        print_str += rf"${star['bp_rp']:0.2f}$ & "
+        print_str += rf"${star['phot_g_mean_mag']:0.2f}$ & "
+        print_str += rf"${star['pmra']:0.2f}$ & "
+        print_str += rf"${star['pmdec']:0.2f}$"
+        print(f"{print_str} \\\\")
+print("\\hline")
+
 panel_labels = ['(a)', '(b)', '(c)', '(d)', '(e)', '(f)']
 
 xy_values = [['ra', 'dec'],
