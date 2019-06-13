@@ -12,7 +12,7 @@ __author__ = "Jeffrey Simpson"
 __copyright__ = "Copyright 2019, Jeffrey Simpson"
 __credits__ = ["Jeffrey Simpson"]
 __license__ = "MIT"
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 __maintainer__ = "Jeffrey Simpson"
 __email__ = "jeffrey.simpson@unsw.edu.au"
 __status__ = "Development"
@@ -46,5 +46,6 @@ def open_file(file_name):
                              (fsr1758['pmdec']-2.55)**2) < 1.2
     good_photom_idx = good_photom_func(fsr1758)
     good_astrom_idx = good_astrom_func(fsr1758)
+    fsr1758['parallax'] += 0.052
     return (fsr1758, cluster_pos_idx, cluster_pm_idx,
             good_photom_idx, good_astrom_idx)
