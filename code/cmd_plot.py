@@ -51,9 +51,9 @@ idx_list = [idx & cluster_pm_idx & good_astrom_idx for idx in [
 print(np.sum(likely_cluster_idx & good_astrom_idx))
 
 print("\\hline")
-print(r"source\_id & RA & Dec & $\\varpi$ & $v_r$ & \\bprp & $G$ & $\\mu_\\mathrm{RA}$ & $\\mu_\\mathrm{Dec}$ \\\\")
-print(r" & (deg) & (deg) & (mas) & (\kms) &  &  & (\masyr) & (\masyr) \\\\")
-print("\\hline")
+print(r"source\_id & RA & Dec & $\varpi$ & $v_r$ & \bprp & $G$ & $\mu_\mathrm{RA}$ & $\mu_\mathrm{Dec}$ & ang. dist \\")
+print(r" & (deg) & (deg) & (mas) & (\kms) &  &  & (\masyr) & (\masyr) & (deg) \\")
+print(r"\hline")
 for idx in idx_list[2:]:
     for star in fsr1758[idx]:
         print_str = f"{star['source_id']} & "
@@ -65,9 +65,10 @@ for idx in idx_list[2:]:
         print_str += rf"${star['bp_rp']:0.2f}$ & "
         print_str += rf"${star['phot_g_mean_mag']:0.2f}$ & "
         print_str += rf"${star['pmra']:0.2f}$ & "
-        print_str += rf"${star['pmdec']:0.2f}$"
+        print_str += rf"${star['pmdec']:0.2f}$ & "
+        print_str += rf"${star['cluster_distance']:0.2f}$"
         print(f"{print_str} \\\\")
-print("\\hline")
+print(r"\hline")
 
 panel_labels = ['(a)', '(b)', '(c)', '(d)', '(e)', '(f)']
 
