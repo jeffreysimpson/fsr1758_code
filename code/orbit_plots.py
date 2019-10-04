@@ -52,7 +52,7 @@ def create_error_samples(nominal_position, errors, n_samples=100):
                       pm_dec=pm_dec, radial_velocity=rv)
 
 
-def compute_orbit(icrs, dt=-0.1*u.Myr, n_steps=50000):
+def compute_orbit(icrs, dt=-0.1 * u.Myr, n_steps=50000):
     """Integrate the orbit."""
     c_icrs = icrs.transform_to(gc_frame).cartesian
     object_phase_space = gd.PhaseSpacePosition(
@@ -64,30 +64,30 @@ def compute_orbit(icrs, dt=-0.1*u.Myr, n_steps=50000):
 
 
 pot = gp.MilkyWayPotential()
-v_sun = coord.CartesianDifferential([11, 248, 7.25]*u.km/u.s)
-gc_frame = coord.Galactocentric(galcen_distance=8.2*u.kpc,
-                                z_sun=25.*u.pc,
+v_sun = coord.CartesianDifferential([11, 248, 7.25] * u.km / u.s)
+gc_frame = coord.Galactocentric(galcen_distance=8.2 * u.kpc,
+                                z_sun=25. * u.pc,
                                 galcen_v_sun=v_sun)
 
 icrs = coord.ICRS(ra=262.806 * u.deg, dec=-39.822 * u.deg,
                   distance=11.5 * u.kpc,
-                  pm_ra_cosdec=-2.85 * u.mas/u.yr,
-                  pm_dec=2.55 * u.mas/u.yr,
-                  radial_velocity=227 * u.km/u.s)
-icrs_err = coord.ICRS(ra=0*u.deg, dec=0*u.deg,
-                      distance=1.*u.kpc,
-                      pm_ra_cosdec=0.1*u.mas/u.yr,
-                      pm_dec=0.1*u.mas/u.yr,
-                      radial_velocity=1.*u.km/u.s)
+                  pm_ra_cosdec=-2.85 * u.mas / u.yr,
+                  pm_dec=2.55 * u.mas / u.yr,
+                  radial_velocity=227 * u.km / u.s)
+icrs_err = coord.ICRS(ra=0 * u.deg, dec=0 * u.deg,
+                      distance=1. * u.kpc,
+                      pm_ra_cosdec=0.1 * u.mas / u.yr,
+                      pm_dec=0.1 * u.mas / u.yr,
+                      radial_velocity=1. * u.km / u.s)
 
 icrs_samples = create_error_samples(icrs, icrs_err, n_samples=100)
 
 fsr1758_orbit = compute_orbit(icrs,
-                              dt=-0.1*5*u.Myr, n_steps=50000/20)
+                              dt=-0.1 * 5 * u.Myr, n_steps=50000 / 20)
 fsr1758_orbit_errors = compute_orbit(icrs_samples,
-                                     dt=-0.1*5*u.Myr, n_steps=50000/20)
+                                     dt=-0.1 * 5 * u.Myr, n_steps=50000 / 20)
 
-fig, axes = plt.subplots(1, 3, figsize=(3.32*2, 2.3))
+fig, axes = plt.subplots(1, 3, figsize=(3.32 * 2, 2.3))
 fsr1758_orbit.plot(color='C3', zorder=500, axes=fig.axes)
 axes[0].scatter(icrs.transform_to(gc_frame).cartesian.x,
                 icrs.transform_to(gc_frame).cartesian.y,
@@ -107,7 +107,7 @@ print("Now redo the orbits with lots of samples")
 
 icrs_samples = create_error_samples(icrs, icrs_err, n_samples=1000)
 fsr1758_orbit_errors = compute_orbit(icrs_samples,
-                                     dt=-0.1*u.Myr*5, n_steps=50000/5)
+                                     dt=-0.1 * u.Myr * 5, n_steps=50000 / 5)
 
 pers = fsr1758_orbit_errors.pericenter(approximate=True)
 apos = fsr1758_orbit_errors.apocenter(approximate=True)
