@@ -349,3 +349,4 @@ TSWLatexianTemp*
 *.spl
 
 data/*
+.DS_Store
